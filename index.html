@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Justin Rupe — Built For The Long Game</title>
+  <link rel="icon" href="favicon.ico"/>
+  <!-- Import Montserrat font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===== Global Reset ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #71AFE5 0%, #ffe9d6 100%);
+      overflow-x: hidden;
+      position: relative;
+      color: #222;
+    }
+
+    /* ===== Floating Elements ===== */
+    .float-sports {
+      position: absolute;
+      opacity: 0.6;
+      animation: float 6s ease-in-out infinite;
+      mix-blend-mode: color-burn; 
+    }
+    .paddle     { top: 10%; left: 2%;   width: 111px; }
+    .pickleball { top: 30%; right: 3%;  width: 111px; }
+    .baseball   { bottom: 45%; left: 3%; width: 111px; }
+    .golf       { bottom: 25%; right: 2%; width: 90px; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-20px); }
+    }
+
+    @media (max-width: 600px) {
+      .float-sports { width: 50px; opacity: 0.4; }
+      .paddle     { top: 5%; left: 2%; }
+      .pickleball { top: 20%; right: 2%; }
+      .baseball   { bottom: 20%; left: 5%; }
+      .golf       { bottom: 25%; right: 5%; }
+    }
+
+    /* ===== PDP Container ===== */
+    .pdp {
+      max-width: 1200px;
+      margin: 60px auto;
+      background: #fffafa;
+      padding: 24px;
+      border-radius: 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 600px) {
+      .pdp { margin: 20px; padding: 16px; }
+    }
+
+    /* ===== Top Layout: Three Columns ===== */
+    .top-content {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    /* ===== Left Section: Hero Image Carousel ===== */
+    .hero-image-container {
+      flex: 0 0 400px;
+      max-width: 400px;
+      background: #fff;
+      padding: 16px;
+      border: 1px solid #e7e7e7;
+      border-radius: 4px;
+      position: relative;
+    }
+    .carousel {
+      width: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      display: flex;
+      gap: 10px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+    .carousel img {
+      flex: 0 0 100%;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      scroll-snap-align: center;
+    }
+    .carousel img:nth-child(1) {
+      --max-width: 368px;
+      --max-height: 368px;
+      --aspect-ratio: 1;
+    }
+    .carousel img:nth-child(2) {
+      --max-width: 350px;
+      --max-height: 500px;
+      --aspect-ratio: 1.4286;
+    }
+    .carousel img:nth-child(3) {
+      --max-width: 368px;
+      --max-height: 258px;
+      --aspect-ratio: 0.7;
+    }
+    .carousel img:nth-child(4) {
+      --max-width: 368px;
+      --max-height: 368px;
+      --aspect-ratio: 1;
+    }
+    .carousel img:nth-child(5) {
+      --max-width: 368px;
+      --max-height: 312px;
+      --aspect-ratio: 0.8444;
+    }
+    .carousel img {
+      max-width: var(--max-width);
+      max-height: var(--max-height);
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border: none;
+      padding: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    .carousel-arrow:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .carousel-arrow.left {
+      left: 24px;
+    }
+    .carousel-arrow.right {
+      right: 24px;
+    }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      background: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .carousel-dot.active {
+      background: #0073bb;
+    }
+
+    @media (max-width: 900px) {
+      .hero-image-container {
+        flex: none;
+        max-width: 350px;
+        margin: 0 auto;
+      }
+      .carousel img {
+        max-width: calc(var(--max-width) * 0.95);
+        max-height: calc(var(--max-width) * 0.95 * var(--aspect-ratio));
+      }
+      .carousel-arrow {
+        padding: 6px;
+        font-size: 1rem;
+      }
+      .carousel-arrow.left {
+        left: 20px;
+      }
+      .carousel-arrow.right {
+        right: 20px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-image-container {
+        max-width: 250px;
+      }
+      .carousel img {
+        max-width: calc(var(--max-width) * 0.68);
+        max-height: calc(var(--max-width) * 0.68 * var(--aspect-ratio));
+      }
+      .carousel-arrow {
+        padding: 4px;
+        font-size: 0.9rem;
+      }
+      .carousel-arrow.left {
+        left: 16px;
+      }
+      .carousel-arrow.right {
+        right: 16px;
+      }
+    }
+
+    /* ===== Middle Section: Main Content ===== */
+    .content-section {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ===== Right Section: Contact Me, Stock, CTA ===== */
+    .contact-section {
+      flex: 0 0 200px;
+      background: #f7f7f7;
+      padding: 16px;
+      border: 1px solid #e7e7e7;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .contact-section h3 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: #111;
+    }
+    .contact-section ul {
+      list-style: none;
+    }
+    .contact-section li {
+      margin-bottom: 12px;
+    }
+    .contact-section .flip-container {
+      perspective: 1000px;
+      display: inline-block;
+      width: 100%;
+    }
+    .contact-section .flipper {
+      position: relative;
+      width: 100%;
+      height: 36px;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .contact-section .flipper:hover {
+      transform: rotateY(180deg);
+    }
+    .contact-section .front,
+    .contact-section .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    .contact-section .front {
+      color: #0073bb;
+    }
+    .contact-section .back {
+      background: #e7e7e7;
+      color: #111;
+      transform: rotateY(180deg);
+    }
+    .contact-section a {
+      display: inline-block;
+      color: #0073bb;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+      width: 100%;
+    }
+    .contact-section a:hover {
+      color: #f5a623;
+    }
+    .contact-section .linkedin-logo {
+      width: 32px;
+      height: 32px;
+      display: block;
+      margin: 0 auto;
+    }
+    .stock {
+      margin-top: 12px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: #007600;
+      font-weight: bold;
+    }
+    .cta-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: #f0c14b;
+      color: #111;
+      text-align: center;
+      font-weight: bold;
+      border: 1px solid #a88734;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 16px;
+      text-decoration: none;
+    }
+    .cta-button:hover {
+      background: #f4d078;
+    }
+
+    @media (max-width: 900px) {
+      .top-content {
+        flex-wrap: wrap;
+      }
+      .hero-image-container {
+        margin-bottom: 20px;
+      }
+      .content-section {
+        flex: 1 1 100%;
+      }
+      .contact-section {
+        flex: 1 1 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .top-content {
+        flex-direction: column;
+        align-items: center;
+      }
+      .content-section {
+        width: 100%;
+      }
+      .contact-section {
+        width: 100%;
+      }
+      .contact-section .linkedin-logo {
+        margin: 0 auto;
+      }
+    }
+
+    /* ===== Nav / Logo ===== */
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #111;
+      margin-bottom: 4px;
+    }
+    .contact-email {
+      font-size: 1.2rem;
+      font-weight: normal;
+    }
+    .contact-email a {
+      color: #0073bb;
+      text-decoration: underline;
+    }
+    .contact-email a:hover {
+      color: #f5a623;
+    }
+
+    /* ===== Title & Rating Button ===== */
+    .title {
+      font-size: 2rem;
+      margin: 12px 0;
+      color: #111;
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 500;
+    }
+    .rating-btn {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.95rem;
+      background: none;
+      border: 1px solid #e7e7e7;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      margin-bottom: 8px;
+    }
+    .rating-btn:hover {
+      background: #f5f5f5;
+      color: #0073bb;
+    }
+    .rating-btn:focus {
+      outline: 2px solid #0073bb;
+    }
+    .stars {
+      color: #f5a623;
+      margin-right: 6px;
+    }
+    .rating-text {
+      color: #333;
+    }
+
+    /* ===== Mom's Choice Badge ===== */
+    .badge {
+      display: inline-block;
+      background: #232f3e;
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+    .badge .moms {
+      color: #fff;
+    }
+    .badge .choice {
+      color: #f5a623;
+    }
+
+    @keyframes ping {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    .badge.ping {
+      animation: ping 0.6s ease-out;
+    }
+
+    .badge { position: relative; }
+    .badge::after {
+      content: 'Endorsed by Mom!';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .badge:hover::after { opacity: 1; }
+
+    /* ===== Price & Stock ===== */
+    .price-stock {
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 24px;
+    }
+    .price {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-right: 32px;
+    }
+
+    /* ===== Product Details (Skills) ===== */
+    .details {
+      margin-bottom: 28px;
+    }
+    .details h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #0073bb;
+    }
+    .details ul {
+      list-style: none;
+      padding-left: 1.2rem;
+    }
+    .details ul li {
+      margin-bottom: 6px;
+      position: relative;
+    }
+    .details ul li:before {
+      content: '•';
+      position: absolute;
+      left: -1.2rem;
+      color: #0073bb;
+    }
+    .details p {
+      margin-top: 6px;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    /* ===== About & Q&A (Full Width Below) ===== */
+    .about, .qa {
+      margin-bottom: 28px;
+    }
+    .about h3, .qa h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #0073bb;
+    }
+    .about p, .qa p {
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .qa .question {
+      font-weight: bold;
+      margin-top: 8px;
+    }
+    .qa .answer {
+      margin-left: 1rem;
+      margin-bottom: 12px;
+    }
+    .qa a { color: #0073bb; text-decoration: underline; }
+    .qa a:hover { color: #f5a623; }
+
+    /* ===== Review Slide-Out Panel ===== */
+    .review-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .review-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .review-panel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+      transition: right 0.3s ease;
+      overflow-y: auto;
+      padding: 24px;
+      display: none;
+    }
+    .review-panel.active {
+      display: block;
+      right: 0;
+    }
+    .review-panel .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #333;
+    }
+    .review-panel .close-btn:hover {
+      color: #0073bb;
+    }
+    .review-panel h3 {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      color: #111;
+    }
+    .review {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e7e7e7;
+    }
+    .review-panel .review {
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .review-panel .review:hover {
+      background: #f5f5f5;
+    }
+    .review:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .review img {
+      width: 80px;
+      height: 88px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #e7e7e7;
+    }
+    .review-content {
+      flex: 1;
+    }
+    .review-content .review-caption {
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #111;
+    }
+    .review-content .stars {
+      margin-bottom: 8px;
+    }
+    .review-content .reviewer {
+      font-weight: bold;
+      margin-bottom: 4px;
+      color: #111;
+    }
+    .review-content .reviewer .linkedin-icon {
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+    .review-content .review-text {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    /* ===== Review Modal (Amazon Style) ===== */
+    .review-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1002;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .review-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .review-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 800px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      z-index: 1003;
+      overflow: hidden;
+      display: none;
+      padding: 20px;
+    }
+    .review-modal.active {
+      display: flex;
+    }
+    .review-modal .modal-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #333;
+    }
+    .review-modal .modal-close-btn:hover {
+      color: #0073bb;
+    }
+    .review-modal .modal-image {
+      flex: 0 0 40%;
+      max-width: 300px;
+      padding-right: 20px;
+    }
+    .review-modal .modal-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      border: 1px solid #e7e7e7;
+    }
+    .review-modal .modal-content {
+      flex: 1;
+      padding: 10px 0;
+    }
+    .review-modal .modal-content .review-caption {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #111;
+    }
+    .review-modal .modal-content .stars {
+      margin-bottom: 8px;
+    }
+    .review-modal .modal-content .reviewer {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #111;
+    }
+    .review-modal .modal-content .reviewer .linkedin-icon {
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+    .review-modal .modal-content .review-text {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #333;
+    }
+    .review-modal .modal-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border: none;
+      padding: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    .review-modal .modal-arrow:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .review-modal .modal-arrow.left {
+      left: 10px;
+    }
+    .review-modal .modal-arrow.right {
+      right: 10px;
+    }
+
+    /* ===== Review Carousel Modal (For Customer Reviews Section) ===== */
+    .review-carousel-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1002;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .review-carousel-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .review-carousel-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 800px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      z-index: 1003;
+      overflow: hidden;
+      display: none;
+      padding: 20px;
+    }
+    .review-carousel-modal.active {
+      display: block;
+    }
+    .review-carousel-modal .carousel-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #333;
+    }
+    .review-carousel-modal .carousel-close-btn:hover {
+      color: #0073bb;
+    }
+    .review-carousel {
+      width: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      display: flex;
+      gap: 20px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .review-carousel::-webkit-scrollbar {
+      display: none;
+    }
+    .review-carousel .review-slide {
+      flex: 0 0 100%;
+      display: flex;
+      gap: 16px;
+      scroll-snap-align: center;
+    }
+    .review-carousel .review-slide img {
+      width: 80px;
+      height: 88px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #e7e7e7;
+    }
+    .review-carousel .review-content {
+      flex: 1;
+    }
+    .review-carousel .review-content .review-caption {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #111;
+    }
+    .review-carousel .review-content .stars {
+      margin-bottom: 8px;
+    }
+    .review-carousel .review-content .reviewer {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #111;
+    }
+    .review-carousel .review-content .reviewer .linkedin-icon {
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+    .review-carousel .review-content .review-text {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #333;
+    }
+    .review-carousel-modal .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border: none;
+      padding: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    .review-carousel-modal .carousel-arrow:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .review-carousel-modal .carousel-arrow.left {
+      left: 10px;
+    }
+    .review-carousel-modal .carousel-arrow.right {
+      right: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .review-panel {
+        width: 100%;
+        right: -100%;
+      }
+      .review {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .review img {
+        margin-bottom: 12px;
+      }
+      .review-modal {
+        flex-direction: column;
+        width: 95%;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+      .review-modal .modal-image {
+        flex: none;
+        max-width: 100%;
+        padding-right: 0;
+        margin-bottom: 20px;
+      }
+      .review-modal .modal-content {
+        padding: 0;
+      }
+      .review-modal .modal-arrow {
+        top: auto;
+        bottom: 10px;
+        transform: none;
+      }
+      .review-modal .modal-arrow.left {
+        left: 50%;
+        transform: translateX(-60px);
+      }
+      .review-modal .modal-arrow.right {
+        right: 50%;
+        transform: translateX(60px);
+      }
+      .review-carousel-modal {
+        width: 95%;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+      .review-carousel .review-slide {
+        flex-direction: column;
+      }
+      .review-carousel .review-slide img {
+        margin-bottom: 12px;
+      }
+      .review-carousel-modal .carousel-arrow {
+        top: auto;
+        bottom: 10px;
+        transform: none;
+      }
+      .review-carousel-modal .carousel-arrow.left {
+        left: 50%;
+        transform: translateX(-60px);
+      }
+      .review-carousel-modal .carousel-arrow.right {
+        right: 50%;
+        transform: translateX(60px);
+      }
+    }
+
+    /* ===== Customer Reviews Section (Full Width) ===== */
+    .customer-reviews {
+      margin-bottom: 28px;
+    }
+    .customer-reviews h3 {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      color: #0073bb;
+    }
+    .customer-reviews .cta-button {
+      margin-bottom: 24px; /* Spacing between button and first review */
+    }
+    .customer-reviews .review {
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .customer-reviews .review:hover {
+      background: #f5f5f5;
+    }
+
+    /* ===== Similar Items (Full Width) ===== */
+    .similar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .similar .item {
+      flex: 1 1 60px;
+      background: #f0f0f0;
+      text-align: center;
+      padding: 8px 0;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* ===== Review Form Modal (Slide-In/Pop-Up) ===== */
+    .review-form-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1002;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .review-form-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .review-form-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 500px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      z-index: 1003;
+      padding: 24px;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .review-form-modal.active {
+      display: block;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .review-form-modal .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #333;
+    }
+    .review-form-modal .close-btn:hover {
+      color: #0073bb;
+    }
+    .review-form-modal h3 {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      color: #111;
+    }
+    .review-form-modal form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    .review-form-modal form input,
+    .review-form-modal form select,
+    .review-form-modal form textarea {
+      width: 100%;
+      padding: 6px;
+      margin: 8px 0;
+      border: 1px solid #e7e7e7;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .review-form-modal form textarea {
+      resize: vertical;
+    }
+    .review-form-modal form .cta-button {
+      width: 100%;
+      margin-top: 16px;
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    "name": "Justin Rupe",
+    "jobTitle": "Account Executive",
+    "description": "Fueled by relentless curiosity, creative drive, and a people-first spirit. Passionate about helping businesses thrive at the crossroads of commerce, design, and innovation.",
+    "url": "https://www.linkedin.com/in/justin-rupe-02b081343/",
+    "image": "images/Rupe.png",
+    "email": "mailto:dupe517@yahoo.com",
+    "telephone": "+18014997330",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bountiful",
+      "addressRegion": "UT"
+    },
+    "sameAs": ["https://www.linkedin.com/in/justin-rupe-02b081343/"],
+    "knowsAbout": [
+      "E-Commerce Growth Strategy",
+      "AI Workflow Innovation",
+      "Human-First Consultative Sales",
+      "HubSpot CRM Automation",
+      "SEO & Structured Data Optimization",
+      "Creative UX and Web Design Principles"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Floating Sports Only -->
+  <img src="images/pickleball_paddle.png" class="float-sports paddle" alt="Pickleball Paddle" loading="lazy"/>
+  <img src="images/pickleball_ball.png" class="float-sports pickleball" alt="Pickleball Ball" loading="lazy"/>
+  <img src="images/baseball.png" class="float-sports baseball" alt="Baseball" loading="lazy"/>
+  <img src="images/golf_club.png" class="float-sports golf" alt="Golf Club" loading="lazy"/>
+
+  <div class="pdp">
+    <!-- Top Content: Three Columns -->
+    <div class="top-content">
+      <!-- Left Section: Hero Image Carousel -->
+      <div class="hero-image-container">
+        <div class="carousel" id="heroCarousel">
+          <img src="images/Rupe.png" alt="Justin Rupe 1" loading="lazy"/>
+          <img src="images/hero2.jpg" alt="Justin Rupe 2" loading="lazy"/>
+          <img src="images/hero4.jpg" alt="Justin Rupe 4" loading="lazy"/>
+          <img src="images/hero5.jpg" alt="Justin Rupe 5" loading="lazy"/>
+        </div>
+        <button class="carousel-arrow left" id="carouselLeft">◄</button>
+        <button class="carousel-arrow right" id="carouselRight">►</button>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+
+      <!-- Middle Section: Main Content -->
+      <div class="content-section">
+        <!-- Nav / Logo -->
+        <div class="nav">
+          <div class="logo">JUSTIN RUPE</div>
+          <div class="contact-email">
+            <a href="mailto:dupe517@yahoo.com">dupe517@yahoo.com</a>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div class="title">Built For The Long Game</div>
+
+        <!-- Rating Button -->
+        <button id="ratingBlock" class="rating-btn" aria-label="View Justin's 5-star rating and reviews">
+          <div class="stars">⭐</div>
+          <div class="rating-text">5.0 (4)</div>
+        </button>
+
+        <!-- Mom's Choice Badge -->
+        <button id="mothersChoiceBtn" class="badge" aria-label="Mom’s Choice Badge">
+          <span class="moms">Mom's</span> <span class="choice">Choice</span>
+        </button>
+
+        <!-- Price -->
+        <div class="price-stock">
+          <div class="price">Price: ❔ – ♾️</div>
+        </div>
+
+        <!-- Product Details (Skills) -->
+        <div class="details">
+          <h3>Product details</h3>
+          <ul>
+            <li>E-Commerce Growth Strategy</li>
+            <li>AI Workflow Innovation</li>
+            <li>Human-First Consultative Sales</li>
+            <li>HubSpot CRM Automation</li>
+            <li>SEO & Structured Data Optimization</li>
+            <li>Creative UX and Web Design Principles</li>
+          </ul>
+          <p><strong>Origin:</strong> Bountiful, UT</p>
+        </div>
+      </div>
+
+      <!-- Right Section: Contact Me, Stock, CTA -->
+      <div class="contact-section">
+        <!-- Contact Me -->
+        <h3>Contact Me</h3>
+        <ul>
+          <li>
+            <a href="https://www.linkedin.com/in/justin-rupe-02b081343/" target="_blank">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn Logo" class="linkedin-logo" loading="lazy"/>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:dupe517@yahoo.com">
+              <div class="flip-container">
+                <div class="flipper">
+                  <div class="front">Email Me</div>
+                  <div class="back">dupe517@yahoo.com</div>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="tel:+18014997330">
+              <div class="flip-container">
+                <div class="flipper">
+                  <div class="front">Call Me</div>
+                  <div class="back">(801)499-7330</div>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Stock -->
+        <div class="stock">Handcrafted Original</div>
+
+        <!-- Add to Cart Button (Now a Link) -->
+        <a href="https://meetings.hubspot.com/justin-rupe" target="_blank" class="cta-button">View My Calendar</a>
+      </div>
+    </div>
+
+    <!-- Continue Middle Section: Full Width Content -->
+    <div class="content-section">
+      <!-- About Section -->
+      <div class="about">
+        <h3>About</h3>
+        <p>
+          I'm a Girl Dad from Utah built from the ground up with a foundation of sports, small business ownership, and nearly five years of steady, high-level remote sales, Justin Rupe brings preparation, creativity, and quiet consistency to every team he joins.
+
+With a passion for building real solutions — not just selling promises — Justin has recently immersed himself in AI, digital creation, and UX design to help brands grow smarter, faster, and stronger.
+
+A First-Team All-State pitcher known for consistency, and an All-Tournament Team selection when it mattered most, Justin has always believed that showing up prepared is just the beginning — it’s performing under pressure that sets you apart.
+That same mindset drives how he approaches business today: stay ready, execute when it counts, and build what’s next.
+
+Good teams build. Great teams build what’s next.
+        </p>
+      </div>
+
+      <!-- Q&A Section -->
+      <div class="qa">
+        <h3>Q&A</h3>
+        <div class="question">Q: What sets you apart?</div>
+        <div class="answer"> 
+          What sets me apart is my curiosity and drive to build with people, not just for them. I move with respect first, energy second, and a mindset that’s always learning, always leveling up. 
+        </div>
+        <div class="question">Q: What does your track record look like?</div>
+        <div class="answer">
+          Earned trust, delivered growth, and picked up a few wins along the way.<br/>
+          Still just getting started. Full track record → <a href="https://www.linkedin.com/in/justin-rupe-02b081343/">LinkedIn</a>
+        </div>
+      </div>
+
+      <!-- Similar Items (Full Width) -->
+      <div class="details">
+        <h3>Similar items</h3>
+        <div class="similar">
+          <div class="item">NOT</div>
+          <div class="item">AVAILABLE</div>
+        </div>
+      </div>
+
+      <!-- Customer Reviews Section (Full Width) -->
+      <div class="customer-reviews">
+        <h3>Customer Reviews</h3>
+        <button id="leaveReviewBtn" class="cta-button">Leave a Review</button>
+        <div class="review" data-index="0">
+          <img src="images/daughter.png" alt="Jane's photo" loading="lazy"/>
+          <div class="review-content">
+            <div class="review-caption">"Best Dad Ever! 🩷"</div>
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <div class="reviewer">Jane</div>
+            <div class="review-text">"I love you Dad, you're the best dad ever and I'm grateful you're in my life"</div>
+          </div>
+        </div>
+        <div class="review" data-index="1">
+          <div class="review-content">
+            <div class="review-caption">"Day 1 Supporter"</div>
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <div class="reviewer">Mommy</div>
+            <div class="review-text">"I love my Justin, we're so lucky to have him."</div>
+          </div>
+          <img src="images/mom.png" alt="Mom's photo" loading="lazy"/>
+        </div>
+        <div class="review" data-index="2">
+          <img src="images/peters.png" alt="Wyatt Peters' photo" loading="lazy"/>
+          <div class="review-content">
+            <div class="review-caption">"Energy - Spirit - Vibes - Results"</div>
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <div class="reviewer">
+              Wyatt Peters (New Partnerships @ JMI Sports - University of Utah Athletics)
+              <a href="https://www.linkedin.com/in/wyatt-peters-441988122/" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" class="linkedin-icon" loading="lazy"/>
+              </a>
+            </div>
+            <div class="review-text">"Dupert is my guy. We've worked together at a couple different companies and he's definitely someone you want on the team. Valuable asset, only positivity out of the kid."</div>
+          </div>
+        </div>
+        <div class="review" data-index="3">
+          <img src="images/dupert.png" alt="Coach Farnsworth's photo" loading="lazy"/>
+          <div class="review-content">
+            <div class="review-caption">"Cool Breeze"</div>
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <div class="reviewer">Coach Farnsworth, 2011</div>
+            <div class="review-text">"Great leadership and beautiful spirit are some of the qualities displayed by Justin. He was our go to guy all year"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review Slide-Out Panel -->
+    <div class="review-overlay" id="reviewOverlay"></div>
+    <div class="review-panel" id="reviewPanel">
+      <button class="close-btn" id="closeReviewPanel" aria-label="Close reviews panel">✖</button>
+      <h3>Customer Reviews</h3>
+      <div class="review" data-index="0">
+        <img src="images/daughter.png" alt="Jane's photo" loading="lazy"/>
+        <div class="review-content">
+          <div class="review-caption">"Best Dad Ever! 🩷"</div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <div class="reviewer">Jane</div>
+          <div class="review-text">"I love you Dad, you're the best dad ever and I'm grateful you're in my life"</div>
+        </div>
+      </div>
+      <div class="review" data-index="1">
+        <img src="images/mom.png" alt="Mom's photo" loading="lazy"/>
+        <div class="review-content">
+          <div class="review-caption">"Day 1 Supporter"</div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <div class="reviewer">Mommy</div>
+          <div class="review-text">"I love my Justin, we're so lucky to have him."</div>
+        </div>
+      </div>
+      <div class="review" data-index="2">
+        <img src="images/peters.png" alt="Wyatt Peters' photo" loading="lazy"/>
+        <div class="review-content">
+          <div class="review-caption">"Energy - Spirit - Vibes - Results"</div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <div class="reviewer">
+            Wyatt Peters (New Partnerships @ JMI Sports - University of Utah Athletics)
+            <a href="https://www.linkedin.com/in/wyatt-peters-441988122/" target="_blank">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" class="linkedin-icon" loading="lazy"/>
+            </a>
+          </div>
+          <div class="review-text">"Dupert is my guy. We've worked together at a couple different companies and he's definitely someone you want on the team. Valuable asset, only positivity out of the kid."</div>
+        </div>
+      </div>
+      <div class="review" data-index="3">
+        <img src="images/dupert.png" alt="Coach Farnsworth's photo" loading="lazy"/>
+        <div class="review-content">
+          <div class="review-caption">"Cool Breeze"</div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <div class="reviewer">Coach Farnsworth, 2011</div>
+          <div class="review-text">"Great leadership and beautiful spirit are some of the qualities displayed by Justin. He was our go to guy all year"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div class="review-modal-overlay" id="reviewModalOverlay"></div>
+    <div class="review-modal" id="reviewModal">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close review modal">✖</button>
+      <button class="modal-arrow left" id="modalLeftArrow">◄</button>
+      <div class="modal-image">
+        <img id="modalImage" src="" alt="Review photo" loading="lazy"/>
+      </div>
+      <div class="modal-content">
+        <div class="review-caption" id="modalCaption"></div>
+        <div class="stars" id="modalStars"></div>
+        <div class="reviewer" id="modalReviewer"></div>
+        <div class="review-text" id="modalText"></div>
+      </div>
+      <button class="modal-arrow right" id="modalRightArrow">►</button>
+    </div>
+
+    <!-- Review Carousel Modal -->
+    <div class="review-carousel-overlay" id="reviewCarouselOverlay"></div>
+    <div class="review-carousel-modal" id="reviewCarouselModal">
+      <button class="carousel-close-btn" id="carouselCloseBtn" aria-label="Close review carousel">✖</button>
+      <button class="carousel-arrow left" id="carouselLeftArrow">◄</button>
+      <div class="review-carousel" id="reviewCarousel">
+        <!-- Reviews will be dynamically inserted here -->
+      </div>
+      <button class="carousel-arrow right" id="carouselRightArrow">►</button>
+    </div>
+
+    <!-- Review Form Modal -->
+    <div id="reviewFormOverlay" class="review-form-overlay"></div>
+    <div id="reviewFormModal" class="review-form-modal">
+      <button class="close-btn" id="formCloseBtn" aria-label="Close review form">✖</button>
+      <h3>Leave a Review</h3>
+      <!-- Replace the action URL with your Formspree endpoint -->
+      <form id="reviewForm" action="https://formspree.io/f/xyzwkdgd" method="POST" enctype="multipart/form-data" accept="application/json">
+        <label>
+          Your Name<br/>
+          <input type="text" name="reviewer" required/>
+        </label><br/>
+        <label>
+          Rating<br/>
+          <select name="stars" required>
+            <option value="5">⭐⭐⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐</option>
+            <option value="3">⭐⭐⭐</option>
+            <option value="2">⭐⭐</option>
+            <option value="1">⭐</option>
+          </select>
+        </label><br/>
+        <label>
+          Title<br/>
+          <input type="text" name="caption" required/>
+        </label><br/>
+        <label>
+          Review Text<br/>
+          <textarea name="text" rows="4" required></textarea>
+        </label><br/>
+        <!-- Honeypot field to reduce spam -->
+        <input type="text" name="_gotcha" style="display:none"/>
+        <button type="submit" class="cta-button">Submit Review</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Hero Carousel Functionality
+    const carousel = document.getElementById('heroCarousel');
+    const dotsContainer = document.getElementById('carouselDots');
+    const leftArrow = document.getElementById('carouselLeft');
+    const rightArrow = document.getElementById('carouselRight');
+    const images = carousel.querySelectorAll('img');
+    const totalImages = images.length;
+
+    images.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.classList.add('carousel-dot');
+      if (index === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        carousel.scrollTo({
+          left: index * images[0].scrollWidth,
+          behavior: 'smooth'
+        });
+      });
+      dotsContainer.appendChild(dot);
+    });
+
+    carousel.addEventListener('scroll', () => {
+      const scrollPosition = carousel.scrollLeft;
+      const imageWidth = images[0].scrollWidth;
+      const activeIndex = Math.round(scrollPosition / imageWidth);
+      document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === activeIndex);
+      });
+    });
+
+    leftArrow.addEventListener('click', () => {
+      const imageWidth = images[0].scrollWidth;
+      const currentScroll = carousel.scrollLeft;
+      const activeIndex = Math.round(currentScroll / imageWidth);
+      let newIndex = activeIndex - 1;
+
+      if (newIndex < 0) {
+        newIndex = totalImages - 1; // Loop to the last image
+      }
+
+      carousel.scrollTo({
+        left: newIndex * imageWidth,
+        behavior: 'smooth'
+      });
+    });
+
+    rightArrow.addEventListener('click', () => {
+      const imageWidth = images[0].scrollWidth;
+      const currentScroll = carousel.scrollLeft;
+      const activeIndex = Math.round(currentScroll / imageWidth);
+      let newIndex = activeIndex + 1;
+
+      if (newIndex >= totalImages) {
+        newIndex = 0; // Loop to the first image
+      }
+
+      carousel.scrollTo({
+        left: newIndex * imageWidth,
+        behavior: 'smooth'
+      });
+    });
+
+    // Review Panel Toggle (for "5.0 (4)" Rating Button)
+    const ratingBlock = document.getElementById('ratingBlock');
+    const reviewOverlay = document.getElementById('reviewOverlay');
+    const reviewPanel = document.getElementById('reviewPanel');
+    const closeReviewPanel = document.getElementById('closeReviewPanel');
+
+    function toggleReviewPanel(show) {
+      if (reviewOverlay && reviewPanel) {
+        reviewOverlay.classList.toggle('active', show);
+        reviewPanel.classList.toggle('active', show);
+      } else {
+        console.error('Review overlay or panel not found');
+      }
+    }
+
+    if (ratingBlock) {
+      ratingBlock.addEventListener('click', () => {
+        toggleReviewPanel(true);
+      });
+    } else {
+      console.error('Rating block element not found');
+    }
+
+    if (closeReviewPanel) {
+      closeReviewPanel.addEventListener('click', () => {
+        toggleReviewPanel(false);
+      });
+    }
+
+    if (reviewOverlay) {
+      reviewOverlay.addEventListener('click', () => {
+        toggleReviewPanel(false);
+      });
+    }
+
+    // Review Modal Functionality (used by "Mom's Choice" and review clicks)
+    const reviewModalOverlay = document.getElementById('reviewModalOverlay');
+    const reviewModal = document.getElementById('reviewModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalLeftArrow = document.getElementById('modalLeftArrow');
+    const modalRightArrow = document.getElementById('modalRightArrow');
+    const reviews = document.querySelectorAll('.review-panel .review');
+    let currentReviewIndex = 0;
+
+    function openReviewModal(index) {
+      if (!reviewModalOverlay || !reviewModal) {
+        console.error('Review modal elements not found');
+        return;
+      }
+      currentReviewIndex = index;
+      updateReviewModal();
+      reviewModalOverlay.classList.add('active');
+      reviewModal.classList.add('active');
+    }
+
+    function closeReviewModal() {
+      if (reviewModalOverlay && reviewModal) {
+        reviewModalOverlay.classList.remove('active');
+        reviewModal.classList.remove('active');
+      }
+    }
+
+    function updateReviewModal() {
+      const review = reviews[currentReviewIndex];
+      if (!review) return;
+
+      const imgSrc = review.querySelector('img').src;
+      const caption = review.querySelector('.review-caption').textContent;
+      const stars = review.querySelector('.stars').textContent;
+      const reviewer = review.querySelector('.reviewer').textContent;
+      const text = review.querySelector('.review-text').textContent;
+
+      document.getElementById('modalImage').src = imgSrc;
+      document.getElementById('modalCaption').textContent = caption;
+      document.getElementById('modalStars').textContent = stars;
+      document.getElementById('modalReviewer').textContent = reviewer;
+      document.getElementById('modalText').textContent = text;
+
+      // Add LinkedIn logo for Wyatt Peters in the modal
+      const modalReviewer = document.getElementById('modalReviewer');
+      modalReviewer.innerHTML = reviewer; // Reset content
+      if (reviewer.includes('Wyatt Peters')) {
+        const linkedinLink = document.createElement('a');
+        linkedinLink.href = 'https://www.linkedin.com/in/wyatt-peters-441988122/';
+        linkedinLink.target = '_blank';
+        const linkedinIcon = document.createElement('img');
+        linkedinIcon.src = 'https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png';
+        linkedinIcon.alt = 'LinkedIn';
+        linkedinIcon.className = 'linkedin-icon';
+        linkedinIcon.setAttribute('loading', 'lazy');
+        linkedinLink.appendChild(linkedinIcon);
+        modalReviewer.appendChild(linkedinLink);
+      }
+    }
+
+    reviews.forEach((review, index) => {
+      review.addEventListener('click', () => {
+        openReviewModal(index);
+      });
+    });
+
+    if (modalLeftArrow) {
+      modalLeftArrow.addEventListener('click', () => {
+        currentReviewIndex = (currentReviewIndex - 1 + reviews.length) % reviews.length;
+        updateReviewModal();
+      });
+    }
+
+    if (modalRightArrow) {
+      modalRightArrow.addEventListener('click', () => {
+        currentReviewIndex = (currentReviewIndex + 1) % reviews.length;
+        updateReviewModal();
+      });
+    }
+
+    if (modalCloseBtn) {
+      modalCloseBtn.addEventListener('click', closeReviewModal);
+    }
+
+    if (reviewModalOverlay) {
+      reviewModalOverlay.addEventListener('click', closeReviewModal);
+    }
+
+    // Mom's Choice Badge to Open Mommy's Review
+    const mothersChoiceBtn = document.getElementById('mothersChoiceBtn');
+    if (mothersChoiceBtn) {
+      mothersChoiceBtn.addEventListener('click', () => {
+        openReviewModal(1); // Mommy's review is at index 1
+      });
+
+      mothersChoiceBtn.addEventListener('mouseenter', () => {
+        mothersChoiceBtn.classList.add('ping');
+        mothersChoiceBtn.addEventListener(
+          'animationend',
+          () => mothersChoiceBtn.classList.remove('ping'),
+          { once: true }
+        );
+      });
+    } else {
+      console.error('Mom\'s Choice button not found');
+    }
+
+    // Review Carousel Modal Functionality
+    const reviewCarouselOverlay = document.getElementById('reviewCarouselOverlay');
+    const reviewCarouselModal = document.getElementById('reviewCarouselModal');
+    const reviewCarousel = document.getElementById('reviewCarousel');
+    const carouselCloseBtn = document.getElementById('carouselCloseBtn');
+    const carouselLeftArrow = document.getElementById('carouselLeftArrow');
+    const carouselRightArrow = document.getElementById('carouselRightArrow');
+    const customerReviews = document.querySelectorAll('.customer-reviews .review');
+    let currentCarouselIndex = 0;
+
+    function populateReviewCarousel() {
+      customerReviews.forEach(review => {
+        const imgSrc = review.querySelector('img').src;
+        const caption = review.querySelector('.review-caption').textContent;
+        const stars = review.querySelector('.stars').textContent;
+        const reviewer = review.querySelector('.reviewer').innerHTML; // Preserve HTML (e.g., LinkedIn link)
+        const text = review.querySelector('.review-text').textContent;
+
+        const slideHtml = `
+          <div class="review-slide">
+            <img src="${imgSrc}" alt="Review photo" loading="lazy"/>
+            <div class="review-content">
+              <div class="review-caption">${caption}</div>
+              <div class="stars">${stars}</div>
+              <div class="reviewer">${reviewer}</div>
+              <div class="review-text">${text}</div>
+            </div>
+          </div>`;
+        reviewCarousel.insertAdjacentHTML('beforeend', slideHtml);
+      });
+    }
+
+    function openReviewCarousel(index) {
+      if (!reviewCarouselOverlay || !reviewCarouselModal) {
+        console.error('Review carousel elements not found');
+        return;
+      }
+      currentCarouselIndex = index;
+      updateReviewCarousel();
+      reviewCarouselOverlay.classList.add('active');
+      reviewCarouselModal.classList.add('active');
+    }
+
+    function closeReviewCarousel() {
+      if (reviewCarouselOverlay && reviewCarouselModal) {
+        reviewCarouselOverlay.classList.remove('active');
+        reviewCarouselModal.classList.remove('active');
+      }
+    }
+
+    function updateReviewCarousel() {
+      const slides = reviewCarousel.querySelectorAll('.review-slide');
+      const slideWidth = slides[0].scrollWidth;
+      reviewCarousel.scrollTo({
+        left: currentCarouselIndex * slideWidth,
+        behavior: 'smooth'
+      });
+    }
+
+    customerReviews.forEach((review, index) => {
+      review.addEventListener('click', () => {
+        openReviewCarousel(index);
+      });
+    });
+
+    if (carouselLeftArrow) {
+      carouselLeftArrow.addEventListener('click', () => {
+        const slides = reviewCarousel.querySelectorAll('.review-slide');
+        currentCarouselIndex = (currentCarouselIndex - 1 + slides.length) % slides.length;
+        updateReviewCarousel();
+      });
+    }
+
+    if (carouselRightArrow) {
+      carouselRightArrow.addEventListener('click', () => {
+        const slides = reviewCarousel.querySelectorAll('.review-slide');
+        currentCarouselIndex = (currentCarouselIndex + 1) % slides.length;
+        updateReviewCarousel();
+      });
+    }
+
+    if (carouselCloseBtn) {
+      carouselCloseBtn.addEventListener('click', closeReviewCarousel);
+    }
+
+    if (reviewCarouselOverlay) {
+      reviewCarouselOverlay.addEventListener('click', closeReviewCarousel);
+    }
+
+    // Populate the carousel on page load
+    populateReviewCarousel();
+
+    // Leave-a-Review Form Logic
+    const leaveBtn = document.getElementById('leaveReviewBtn');
+    const formOverlay = document.getElementById('reviewFormOverlay');
+    const formModal = document.getElementById('reviewFormModal');
+    const formCloseBtn = document.getElementById('formCloseBtn');
+    const reviewForm = document.getElementById('reviewForm');
+    const reviewsList = document.querySelector('.customer-reviews');
+    const panelList = document.getElementById('reviewPanel');
+
+    function toggleForm(show) {
+      formOverlay.classList.toggle('active', show);
+      formModal.classList.toggle('active', show);
+    }
+    leaveBtn.addEventListener('click', () => toggleForm(true));
+    formCloseBtn.addEventListener('click', () => toggleForm(false));
+    formOverlay.addEventListener('click', () => toggleForm(false));
+
+    reviewForm.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      // 1️⃣ Live preview
+      const fd = new FormData(reviewForm);
+      const reviewer = fd.get('reviewer');
+      const stars = '⭐'.repeat(fd.get('stars'));
+      const caption = fd.get('caption');
+      const text = fd.get('text');
+      const html = `
+        <div class="review">
+          <img src="images/default-avatar.png" alt="${reviewer}" style="width:80px;height:88px;border-radius:4px;"/>
+          <div class="review-content">
+            <div class="review-caption">"${caption}"</div>
+            <div class="stars">${stars}</div>
+            <div class="reviewer">${reviewer}</div>
+            <div class="review-text">${text}</div>
+          </div>
+        </div>`;
+      reviewsList.insertAdjacentHTML('beforeend', html);
+      panelList.insertAdjacentHTML('beforeend', html);
+
+      // 2️⃣ Submit to Formspree
+      try {
+        const res = await fetch(reviewForm.action, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
+        if (!res.ok) throw new Error(res.statusText);
+        console.log('✅ Submitted to Formspree');
+      } catch (err) {
+        console.error('❌ Formspree error:', err);
+        alert('Failed to save review externally.');
+      }
+
+      // 3️⃣ Reset & close
+      reviewForm.reset();
+      toggleForm(false);
+    });
+  </script>
+</body>
+</html>
